@@ -25,8 +25,9 @@ jobs:
     - name: Copy model to the Docker image
       run: docker cp linear_model serving_base:/models/linear_model
       
-#    - name: Build the Docker image
+    - name: Build the custom Docker image
+      run: docker commit --change "ENV MODEL_NAME linear_model" serving_base adsoft/tensorflow_serving
 #      run: docker build . --file Dockerfile --tag adsoft/serving-test:latest
   
-#    - name: Docker Push
-#      run: docker push adsoft/serving-test:latest
+    - name: Docker Push
+      run: docker push adsoft/tensorflow_serving
