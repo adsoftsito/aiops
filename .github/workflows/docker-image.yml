@@ -20,14 +20,23 @@ jobs:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
-    - name: Build the Docker image
+    - name: Download and run the Docker base image
       run: docker run -d --name serving_base tensorflow/serving
     - name: Copy model to the Docker image
       run: docker cp linear_model serving_base:/models/linear_model
       
     - name: Build the custom Docker image
       run: docker commit --change "ENV MODEL_NAME linear_model" serving_base adsoft/tensorflow_serving
-#      run: docker build . --file Dockerfile --tag adsoft/serving-test:latest
   
     - name: Docker Push
       run: docker push adsoft/tensorflow_serving
+      
+    - uses: okteto/context@2.7.0
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+
+    - name: Deploy
+      uses: okteto/pipeline@2.7.0
+      with:
+         name: linear_model
+         timeout: 5m
