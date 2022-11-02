@@ -22,7 +22,9 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
     - name: Build the Docker image
       run: docker run -d --name serving_base tensorflow/serving
-  
+    - name: Copy model to the Docker image
+      run: docker cp linear_model serving_base:/models/linear_model
+      
 #    - name: Build the Docker image
 #      run: docker build . --file Dockerfile --tag adsoft/serving-test:latest
   
