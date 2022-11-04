@@ -39,4 +39,4 @@ jobs:
       uses: okteto/pipeline@2.7.0
       with:
          name: linear_model
-         timeout: 5m
+         timeout: 10m
