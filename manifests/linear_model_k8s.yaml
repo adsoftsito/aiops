@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: linear-model-container
-        image: docker.io/adsoft/linear_model
+        image: docker.io/adsoft/tensorflow_linear_model
         ports:
         - containerPort: 8501
 ---
