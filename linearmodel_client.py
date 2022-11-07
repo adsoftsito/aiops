@@ -35,7 +35,7 @@ SERVER_URL = 'https://linear-model-service-adsoftsito.cloud.okteto.net/v1/models
 
 
 def main():
-  predict_request = '{"instances" : [ [0.1], [1.2], [2.3] ]}'
+  predict_request = '{"instances" : [ [0.0], [1.0], [2.0] ]}'
 
   # Send few requests to warm-up the model.
   for _ in range(3):
