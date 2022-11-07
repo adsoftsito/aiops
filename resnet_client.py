@@ -43,9 +43,9 @@ import requests
 SERVER_URL = 'https://resnet-service-adsoftsito.cloud.okteto.net/v1/models/resnet:predict'
 
 # The image URL is the location of the image we should send to the server
-#IMAGE_URL = 'https://tensorflow.org/images/blogs/serving/cat.jpg'
+IMAGE_URL = 'https://tensorflow.org/images/blogs/serving/cat.jpg'
 #IMAGE_URL = "https://www.pngkey.com/png/detail/1-16373_dogs-png-jpg-royalty-free-library-dog-and.png"
-IMAGE_URL = "https://www.pngkey.com/png/detail/1-18245_single-rose-image-single-red-rose-red-rose.png"
+#IMAGE_URL = "https://www.pngkey.com/png/detail/1-18245_single-rose-image-single-red-rose-red-rose.png"
 # Current Resnet model in TF Model Garden (as of 7/2021) does not accept JPEG
 # as input
 MODEL_ACCEPT_JPG = False
