@@ -22,6 +22,13 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
     - name: Download and run the Docker base image
       run: docker run -d --name serving_base tensorflow/serving
+ 
+    - name: Dowmload model
+      run: wget https://github.com/adsoftsito/tensorflow-2.0/raw/main/linear_model.zip
+    
+    - name: Extract model
+      run: tar xvf linear_model.zip
+      
     - name: Copy model to the Docker image
       run: docker cp ${{secrets.MODEL_NAME}} serving_base:/models/${{secrets.MODEL_NAME}}
       
