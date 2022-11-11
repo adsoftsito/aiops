@@ -26,9 +26,12 @@ jobs:
     - name: Download model
       run: wget https://github.com/adsoftsito/tensorflow-2.0/raw/main/linear_model.zip
 
+    - name: remove base linear_model 
+      run: rm -rf linear_model
+
     - name: list 
       run: ls -la
-      
+
     - name: Extract model
       run: unzip linear_model.zip
       
