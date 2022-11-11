@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: linear_model-deployment
+  name: linear-model-deployment
 spec:
   selector:
     matchLabels:
-      app: linear_model-server
+      app: linear-model-server
   replicas: 3
   template:
     metadata:
       labels:
-        app: linear_model-server
+        app: linear-model-server
     spec:
       containers:
-      - name: resnet-container
+      - name: linear-model-container
         #image: gcr.io/tensorflow-serving/resnet 
         image: docker.io/adsoft/tensorflow_linear_model
         ports:
@@ -23,12 +23,12 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    run: linear_model-service
-  name: linear_model-service
+    run: linear-model-service
+  name: linear-model-service
 spec:
   ports:
   - port: 8501
     targetPort: 8501
   selector:
-    app: linear_model-server
+    app: linear-model-server
   type: LoadBalancer
