@@ -41,8 +41,11 @@ jobs:
     - name: list python 
       run: python linear.py
 
+    - name: update sha 
+      run: sed -i 's/Helper/i-love-adsoftsito/g' linear.py
+
     - name: list  
-      run: ls -la
+      run: cat linear.py
 
 
 #    - name: Extract model
