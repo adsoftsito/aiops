@@ -57,12 +57,12 @@ jobs:
     - name: Docker Push
       run: docker push ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}
       
-#    - uses: okteto/context@2.7.0
-#      with:
-#        token: ${{secrets.OKTETO_TOKEN }}
+    - uses: okteto/context@2.7.0
+      with:
+        token: ${{secrets.OKTETO_TOKEN }}
 
-#    - name: Deploy
-#      uses: okteto/pipeline@2.7.0
-#      with:
-#         name: ${{secrets.MODEL_NAME}}
-#         timeout: 10m
+    - name: Deploy
+      uses: okteto/pipeline@2.7.0
+      with:
+         name: ${{secrets.MODEL_NAME}}
+         timeout: 10m
