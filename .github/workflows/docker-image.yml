@@ -36,7 +36,7 @@ jobs:
       run: python linear.py
 
     - name: list  
-      run: list -la
+      run: ls -la
 
 
 #    - name: Extract model
