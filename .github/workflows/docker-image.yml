@@ -74,7 +74,7 @@ jobs:
         namespace: adsoftsito
         manifest: manifests/linear_model_k8s.yaml
         tag: ${{ secrets.DOCKER_USERNAME }}/tensorflow_${{secrets.MODEL_NAME}}:${{ github.sha }}
-        waitOn: adsoftsito/${{secrets.MODEL_NAME}}
+        #waitOn: adsoftsito/${{secrets.MODEL_NAME}}
          
   #  - name: test python 
   #    run: python linearmodel_client.py
