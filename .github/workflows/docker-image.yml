@@ -42,10 +42,10 @@ jobs:
       run: python linear.py
 
     - name: update sha 
-      run: sed -i 's/Helper/i-love-adsoftsito/g' linear.py
+      run: sed -i 's/{github.sha}/${{ github.sha }}/g' manifests/linear_model_k8s.yaml
 
     - name: list  
-      run: cat linear.py
+      run: cat manifests/linear_model_k8s.yaml
 
 
 #    - name: Extract model
