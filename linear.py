@@ -10,7 +10,7 @@ print(tf.__version__)
 
 X = np.arange(-10.0, 10.0, 1e-2)
 np.random.shuffle(X)
-y =  2.5 * X + 0.5
+y =  10.5 * X + 1
 
 train_end = int(0.6 * len(X))
 #print (train_end)
