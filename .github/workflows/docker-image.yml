@@ -18,8 +18,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: install docker
-      run:  apt-get install docker-ce docker-ce-cli 
+#    - name: install docker
+#      run:  apt-get install docker-ce docker-ce-cli 
     - name: docker login
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
