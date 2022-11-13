@@ -52,10 +52,10 @@ jobs:
       run: docker cp ${{secrets.MODEL_NAME}} serving_base:/models/${{secrets.MODEL_NAME}}
       
     - name: Build the custom Docker image
-      run: docker commit --change "ENV MODEL_NAME ${{secrets.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}:test
+      run: docker commit --change "ENV MODEL_NAME ${{secrets.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}:test1
   
     - name: Docker Push
-      run: docker push ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}:test
+      run: docker push ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}:test1
       
     - uses: okteto/context@2.7.0
       with:
