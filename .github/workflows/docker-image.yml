@@ -74,7 +74,7 @@ jobs:
         namespace: ${{secrets.MODEL_NAME}}
         manifest: manifests/linear_model_k8s.yaml
         tag: ${{ secrets.DOCKER_USERNAME }}/${{secrets.MODEL_NAME}}:${{ github.sha }}
-        waitOn: deployment/${{secrets.MODEL_NAME}}
+        waitOn: adsoftsito/${{secrets.MODEL_NAME}}
          
   #  - name: test python 
   #    run: python linearmodel_client.py
