@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     #container: visuworks/tensorflow-docker
-    container: corpusops/tensorflow
+    #container: corpusops/tensorflow
 
 
  #   runs-on: ubuntu-latest
@@ -26,8 +26,8 @@ jobs:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
-#    - name: Download and run the Docker base image
-#      run: docker run -d --name serving_base tensorflow/serving
+    - name: Download and run the Docker base image
+      run: docker run -d --name serving_base tensorflow/serving
  
 #    - name: Download model
 #      run: wget -O linear_model.zip https://firebasestorage.googleapis.com/v0/b/adsoft-upload-blob.appspot.com/o/linear_model.zip\?alt\=media\&token\=https://firebasestorage.googleapis.com/v0/b/adsoft-upload-blob.appspot.com/o/linear_model.zip\?alt\=media\&token\=588c052f-065c-4fd5-9b05-86fa752f6701
@@ -35,8 +35,8 @@ jobs:
     - name: remove base linear_model 
       run: rm -rf linear_model
 
- #   - name: pip install reqs
- #     run: pip install -r requirements.txt 
+    - name: pip install reqs
+      run: pip install -r requirements.txt 
       
     - name: list python 
       run: python linear.py
@@ -48,14 +48,14 @@ jobs:
 #    - name: Extract model
 #      run: unzip linear_model.zip
       
-#    - name: Copy model to the Docker image
-#      run: docker cp ${{secrets.MODEL_NAME}} serving_base:/models/${{secrets.MODEL_NAME}}
+    - name: Copy model to the Docker image
+      run: docker cp ${{secrets.MODEL_NAME}} serving_base:/models/${{secrets.MODEL_NAME}}
       
-  #  - name: Build the custom Docker image
-  #    run: docker commit --change "ENV MODEL_NAME ${{secrets.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}
+    - name: Build the custom Docker image
+      run: docker commit --change "ENV MODEL_NAME ${{secrets.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}
   
- #   - name: Docker Push
- #     run: docker push ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}
+    - name: Docker Push
+      run: docker push ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}
       
 #    - uses: okteto/context@2.7.0
 #      with:
