@@ -16,12 +16,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: docker login
-      env:
-        DOCKER_USER: ${{secrets.DOCKER_USER}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
+#    - name: docker login
+#      env:
+#        DOCKER_USER: ${{secrets.DOCKER_USER}}
+#        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+#      run: |
+#        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
 #    - name: Download and run the Docker base image
 #      run: docker run -d --name serving_base tensorflow/serving
  
@@ -31,8 +31,8 @@ jobs:
     - name: remove base linear_model 
       run: rm -rf linear_model
 
-    - name: pip install reqs
-      run: pip install -r requirements.txt 
+ #   - name: pip install reqs
+ #     run: pip install -r requirements.txt 
       
     - name: list python 
       run: python linear.py
