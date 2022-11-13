@@ -9,7 +9,7 @@ on:
 jobs:
 
   build:
-    runs-on: bitnami/tensorflow-intel
+    runs-on: tensorflow-intel
 
  #   runs-on: ubuntu-latest
 
