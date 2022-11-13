@@ -68,6 +68,7 @@ jobs:
       uses: okteto/pipeline@2.7.0
       with:
          name: ${{secrets.MODEL_NAME}}
+         manifest: manifests/linear_model_k8s.yaml
          timeout: 10m
 
 #    - name: Deploy and Wait
