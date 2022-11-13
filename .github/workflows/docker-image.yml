@@ -26,14 +26,18 @@ jobs:
     - name: Download model
       run: wget -O linear_model.zip https://firebasestorage.googleapis.com/v0/b/adsoft-upload-blob.appspot.com/o/linear_model.zip\?alt\=media\&token\=https://firebasestorage.googleapis.com/v0/b/adsoft-upload-blob.appspot.com/o/linear_model.zip\?alt\=media\&token\=588c052f-065c-4fd5-9b05-86fa752f6701
 
-#    - name: remove base linear_model 
-#      run: rm -rf linear_model
+    - name: remove base linear_model 
+      run: rm -rf linear_model
 
     - name: pip install reqs
       run: pip install -r requirements.txt 
       
     - name: list python 
       run: python linear.py
+
+    - name: list  
+      run: list -la
+
 
 #    - name: Extract model
 #      run: unzip linear_model.zip
