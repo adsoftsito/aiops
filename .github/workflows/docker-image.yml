@@ -10,7 +10,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    container: corpusops/tensorflow
+    container: visuworks/tensorflow-docker
+    #container: corpusops/tensorflow
 
 
  #   runs-on: ubuntu-latest
