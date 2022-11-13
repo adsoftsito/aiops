@@ -61,11 +61,20 @@ jobs:
       with:
         token: ${{secrets.OKTETO_TOKEN }}
 
-    - name: Deploy
-      uses: okteto/pipeline@2.7.0
+#    - name: Deploy
+#      uses: okteto/pipeline@2.7.0
+#      with:
+#         name: ${{secrets.MODEL_NAME}}
+#         timeout: 10m
+    - name: Deploy and Wait
+      uses: okteto/actions/deploy@v1
+      env:
+        KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}
       with:
-         name: ${{secrets.MODEL_NAME}}
-         timeout: 10m
+        namespace: ${{secrets.MODEL_NAME}}
+        manifest: manifest/linear_model_k8s.yaml
+        tag: ${{ secrets.DOCKER_USERNAME }}/${{secrets.MODEL_NAME}}:${{ github.sha }}
+        waitOn: deployment/${{secrets.MODEL_NAME}}
          
   #  - name: test python 
   #    run: python linearmodel_client.py
