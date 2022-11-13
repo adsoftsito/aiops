@@ -72,7 +72,7 @@ jobs:
         KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}
       with:
         namespace: ${{secrets.MODEL_NAME}}
-        manifest: manifest/linear_model_k8s.yaml
+        manifest: manifests/linear_model_k8s.yaml
         tag: ${{ secrets.DOCKER_USERNAME }}/${{secrets.MODEL_NAME}}:${{ github.sha }}
         waitOn: deployment/${{secrets.MODEL_NAME}}
          
