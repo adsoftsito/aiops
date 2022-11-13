@@ -16,7 +16,7 @@ spec:
       containers:
       - name: linear-model-container
         #image: gcr.io/tensorflow-serving/resnet 
-        image: docker.io/adsoft/tensorflow_linear_model:latest
+        image: docker.io/adsoft/tensorflow_linear_model:{github.sha}
         ports:
         - containerPort: 8501
 ---
