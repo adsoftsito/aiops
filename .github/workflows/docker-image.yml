@@ -9,8 +9,9 @@ on:
 jobs:
 
   build:
+    runs-on: bitnami/tensorflow-intel
 
-    runs-on: ubuntu-latest
+ #   runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
