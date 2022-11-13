@@ -55,7 +55,7 @@ jobs:
       run: docker commit --change "ENV MODEL_NAME ${{secrets.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}:test
   
     - name: Docker Push
-      run: docker push ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}
+      run: docker push ${{secrets.DOCKER_USER}}/tensorflow_${{secrets.MODEL_NAME}}:test
       
     - uses: okteto/context@2.7.0
       with:
