@@ -10,7 +10,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    container: bitnami/tensorflow-intel
+    container: corpusops/tensorflow
+
 
  #   runs-on: ubuntu-latest
 
