@@ -30,7 +30,7 @@ jobs:
 #      run: rm -rf linear_model
 
     - name: list python 
-      run: python --version
+      run: python linear.py
 
 #    - name: Extract model
 #      run: unzip linear_model.zip
