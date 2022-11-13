@@ -10,14 +10,16 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    container: visuworks/tensorflow-docker
-    #container: corpusops/tensorflow
+    #container: visuworks/tensorflow-docker
+    container: corpusops/tensorflow
 
 
  #   runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
+    - name: install docker
+      run: sudo apt-get install docker-ce docker-ce-cli 
     - name: docker login
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
