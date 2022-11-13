@@ -67,6 +67,6 @@ jobs:
          name: ${{secrets.MODEL_NAME}}
          timeout: 10m
          
-    - name: test python 
-      run: python linearmodel_client.py
+  #  - name: test python 
+  #    run: python linearmodel_client.py
 
