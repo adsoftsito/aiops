@@ -11,21 +11,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: adsoft/aiops:latest
-    #container: corpusops/tensorflow
-
-
- #   runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-#    - name: install docker
-#      run:  apt-get install docker-ce docker-ce-cli 
     - name: docker login
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
+        
     - name: Download and run the Docker base image
       run: docker run -d --name serving_base tensorflow/serving
  
@@ -44,14 +39,13 @@ jobs:
     - name: update sha 
       run: sed -i 's/{github.sha}/${{ github.sha }}/g' manifests/linear_model_k8s.yaml
 
-    - name: list  
-      run: cat manifests/linear_model_k8s.yaml
-
+#    - name: list  
+#      run: cat manifests/linear_model_k8s.yaml
 
 #    - name: Extract model
 #      run: unzip linear_model.zip
       
-    - name: Copy model to the Docker image
+    - name: copy model to the Docker image
       run: docker cp ${{secrets.MODEL_NAME}} serving_base:/models/${{secrets.MODEL_NAME}}
       
     - name: Build the custom Docker image
