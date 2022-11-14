@@ -36,7 +36,13 @@ jobs:
     - name: list python 
       run: python linear.py
 
-    - name: update sha 
+    - name: update docker user in k8 
+      run: sed -i 's/{docker_user}/${{secrets.DOCKER_USER}}/g' manifests/linear_model_k8s.yaml
+
+    - name: update model name in k8 
+      run: sed -i 's/{model_name}/${{secrets.MODEL_NAME}}/g' manifests/linear_model_k8s.yaml
+
+    - name: update sha in k8
       run: sed -i 's/{github.sha}/${{ github.sha }}/g' manifests/linear_model_k8s.yaml
 
 #    - name: list  
