@@ -10,7 +10,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    #container: visuworks/tensorflow-docker
+    container: adsoft/aiops:latest
     #container: corpusops/tensorflow
 
 
@@ -35,8 +35,8 @@ jobs:
     - name: remove base linear_model 
       run: rm -rf linear_model
 
-    - name: pip install reqs
-      run: pip install -r requirements.txt 
+#    - name: pip install reqs
+#      run: pip install -r requirements.txt 
       
     - name: list python 
       run: python linear.py
