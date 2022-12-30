@@ -30,8 +30,8 @@ jobs:
     - name: remove base linear_model 
       run: rm -rf linear_model
 
-#    - name: pip install reqs
-#      run: pip install -r requirements.txt 
+    - name: pip install reqs
+      run: pip install pandas 
       
     - name: list python 
       run: python regression.py
