@@ -34,7 +34,7 @@ jobs:
 #      run: pip install -r requirements.txt 
       
     - name: list python 
-      run: python linear.py
+      run: python regression.py
 
     - name: update docker user in k8 
       run: sed -i 's/{docker_user}/${{secrets.DOCKER_USER}}/g' manifests/linear_model_k8s.yaml
