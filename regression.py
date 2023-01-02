@@ -6,7 +6,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 
 #print(tf.__version__)
-dataset_path = keras.utils.get_file("dataset.csv", "https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/datasets%2Fmelb_data.csv\?alt\=media\&token\=b891a644-e1a1-4ed7-b6a0-7bdba57c9aac")
+dataset_path = keras.utils.get_file("dataset.csv", "https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/datasets%2Fmelb_data.csv?alt=media&token=b891a644-e1a1-4ed7-b6a0-7bdba57c9aac")
 print(dataset_path)
 column_names = ['MPG','Cylinders','Displacement','Horsepower','Weight',
                 'Acceleration', 'Model Year', 'Origin']
