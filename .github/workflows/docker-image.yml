@@ -5,12 +5,12 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-#  repository_dispatch:
-#    types: [build]  
+  repository_dispatch:
+    types: [prediction]  
 
 jobs:
 
-  build:
+  prediction:
     runs-on: ubuntu-latest
     container: adsoft/ai-ops:latest
 
