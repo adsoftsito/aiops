@@ -16,6 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - run: 'echo "field: ${{ github.event.client_payload.text }}"'
+
     - name: docker login
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
