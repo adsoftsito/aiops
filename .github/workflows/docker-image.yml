@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run: 'echo "field: ${{ github.event.client_payload.codeurl }}"'
+    - run: 'echo "field: ${{github.event.client_payload.MODEL_NAME}}"'
 
     - name: docker login
       env:
