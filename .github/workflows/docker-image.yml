@@ -29,11 +29,9 @@ jobs:
       run: docker run -d --name serving_base tensorflow/serving
  
     - name: Download program
-#      run: wget -O prediction.py https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fprediction.py?alt=media&token=71ed930a-646e-4e35-a0c4-8b8e4f8f1812
-#      run: wget -O prediction.py https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fprediction_m.py?alt=media&token=51ffda56-eac3-46a3-a23a-c90d4de89178 
       run:  wget -O prediction.py ${{ github.event.client_payload.codeurl }}
-    - name: remove base linear_model 
-      run: rm -rf linear_model
+#    - name: remove base linear_model 
+#      run: rm -rf linear_model
 
     - name: pip install reqs
       run: pip install pandas 
@@ -45,7 +43,7 @@ jobs:
       run: sed -i 's/{docker_user}/${{secrets.DOCKER_USER}}/g' manifests/linear_model_k8s.yaml
 
     - name: update model name in k8 
-      run: sed -i 's/{model_name}/${{secrets.MODEL_NAME}}/g' manifests/linear_model_k8s.yaml
+      run: sed -i 's/{model_name}/${{github.event.client_payload.MODEL_NAME}}/g' manifests/linear_model_k8s.yaml
 
     - name: update _ by - 
       run: sed -i 's/_/-/g' manifests/linear_model_k8s.yaml
@@ -56,17 +54,17 @@ jobs:
     - name: list  
       run: cat manifests/linear_model_k8s.yaml
 
-#    - name: Extract model
-#      run: unzip linear_model.zip
+    - name: Extract model
+      run: unzip linear_model.zip
       
     - name: copy model to the Docker image
-      run: docker cp ${{secrets.MODEL_NAME}} serving_base:/models/${{secrets.MODEL_NAME}}
+      run: docker cp ${{github.event.client_payload.MODEL_NAME}} serving_base:/models/${{github.event.client_payload.MODEL_NAME}}
       
     - name: Build the custom Docker image
-      run: docker commit --change "ENV MODEL_NAME ${{secrets.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow-${{secrets.MODEL_NAME}}:${{ github.sha }}
+      run: docker commit --change "ENV MODEL_NAME ${{github.event.client_payload.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow-${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
   
     - name: Docker Push
-      run: docker push ${{secrets.DOCKER_USER}}/tensorflow-${{secrets.MODEL_NAME}}:${{ github.sha }}
+      run: docker push ${{secrets.DOCKER_USER}}/tensorflow-${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
       
     - uses: okteto/context@2.7.0
       with:
@@ -75,7 +73,7 @@ jobs:
  #   - name: Deploy
  #     uses: okteto/pipeline@2.7.0
  #     with:
- #        name: ${{secrets.MODEL_NAME}}
+ #        name: ${{github.event.client_payload.MODEL_NAME}}
  #        timeout: 10m
 
     - name: Deploy and Wait
@@ -85,7 +83,7 @@ jobs:
       with:
         namespace: ${{secrets.OKTETO_NAMESPACE }}
         manifest: manifests/linear_model_k8s.yaml
-        tag: ${{ secrets.DOCKER_USERNAME }}/tensorflow_${{secrets.MODEL_NAME}}:${{ github.sha }}
+        tag: ${{ secrets.DOCKER_USERNAME }}/tensorflow_${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
         #waitOn: adsoftsito/${{secrets.MODEL_NAME}}
          
   #  - name: test python 
