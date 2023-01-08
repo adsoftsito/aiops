@@ -28,8 +28,8 @@ jobs:
  
     - name: Download program
 #      run: wget -O prediction.py https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fprediction.py?alt=media&token=71ed930a-646e-4e35-a0c4-8b8e4f8f1812
-      run: wget -O prediction.py https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fprediction_m.py?alt=media&token=51ffda56-eac3-46a3-a23a-c90d4de89178 
-
+#      run: wget -O prediction.py https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fprediction_m.py?alt=media&token=51ffda56-eac3-46a3-a23a-c90d4de89178 
+      run:  wget -O prediction.py https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fprediction.py?alt=media&token=4b051678-edf9-4166-96a6-b9e05c2f75d8
     - name: remove base linear_model 
       run: rm -rf linear_model
 
