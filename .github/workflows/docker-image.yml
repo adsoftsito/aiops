@@ -51,8 +51,9 @@ jobs:
     - name: update sha in k8
       run: sed -i 's/{github.sha}/${{ github.sha }}/g' manifests/linear_model_k8s.yaml
 
-    - name: list  
-      run: cat manifests/linear_model_k8s.yaml
+    - name: ls -la 
+      run: ls -la  
+      #cat manifests/linear_model_k8s.yaml
 
     - name: Extract model
       run: unzip linear_model.zip
