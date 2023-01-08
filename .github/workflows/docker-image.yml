@@ -36,7 +36,7 @@ jobs:
     - name: pip install reqs
       run: pip install pandas 
       
-    - name: list python 
+    - name: run python program 
       run: python prediction.py
 
     - name: update docker user in k8 
@@ -55,8 +55,8 @@ jobs:
       run: ls -la  
       #cat manifests/linear_model_k8s.yaml
 
-    - name: Extract model
-      run: unzip linear_model.zip
+#    - name: Extract model
+#      run: unzip linear_model.zip
       
     - name: copy model to the Docker image
       run: docker cp ${{github.event.client_payload.MODEL_NAME}} serving_base:/models/${{github.event.client_payload.MODEL_NAME}}
