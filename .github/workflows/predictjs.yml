@@ -37,8 +37,8 @@ jobs:
 #    - name: remove base linear_model 
 #      run: rm -rf linear_model
 
-    - name: install tensorflowjs
-      run: pip install tensorflowjs
+#    - name: install tensorflowjs
+#      run: pip install tensorflowjs
       
     - name: convert model 
       run:  tensorflowjs_converter --input_format=tfjs_layers_model --output_format=keras_saved_model ./mypredict.json ${{github.event.client_payload.MODEL_NAME}}/1/
