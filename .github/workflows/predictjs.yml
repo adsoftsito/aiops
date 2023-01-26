@@ -28,16 +28,20 @@ jobs:
     - name: Download and run the Docker base image
       run: docker run -d --name serving_base tensorflow/serving
  
-    - name: Download program
-      run:  wget -O prediction.py ${{ github.event.client_payload.codeurl }}
+    - name: Download model
+       run   wget -O mypredict.json https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fmypredict.json?alt=media&token=f742da75-627b-4c80-bd48-5668de4f6bf7
+#       run:  wget -O prediction.py ${{ github.event.client_payload.codeurl }}
+    - name: Download weights
+       run   wget -O mypredict.weights.bin https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fmypredict.weights.bin?alt=media&token=15d35f77-7ec4-478b-817f-ad74ee0a7104
+
 #    - name: remove base linear_model 
 #      run: rm -rf linear_model
 
-    - name: pip install reqs
-      run: pip install pandas 
+    - name: install tensorflowjs
+      run: pip install tensorflowjs
       
-    - name: run python program 
-      run: python prediction.py
+    - name: convert model 
+      run:  tensorflowjs_converter --input_format=tfjs_layers_model --output_format=keras_saved_model ./mypredict.json ${{github.event.client_payload.MODEL_NAME}}
 
     - name: update docker user in k8 
       run: sed -i 's/{docker_user}/${{secrets.DOCKER_USER}}/g' manifests/linear_model_k8s.yaml
