@@ -41,10 +41,10 @@ jobs:
       run: pip install tensorflowjs
       
     - name: convert model 
-      run:  tensorflowjs_converter --input_format=tfjs_layers_model --output_format=keras_saved_model ./mypredict.json mypredict
+      run:  tensorflowjs_converter --input_format=tfjs_layers_model --output_format=keras_saved_model ./mypredict.json mymodel
       # ${{github.event.client_payload.MODEL_NAME}}
     - name: show model 
-      run:  ls -la mypredict
+      run:  ls -la mymodel
   
     - name: update docker user in k8 
       run: sed -i 's/{docker_user}/${{secrets.DOCKER_USER}}/g' manifests/linear_model_k8s.yaml
