@@ -29,10 +29,10 @@ jobs:
       run: docker run -d --name serving_base tensorflow/serving
  
     - name: Download model
-       run   wget -O mypredict.json https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fmypredict.json?alt=media&token=f742da75-627b-4c80-bd48-5668de4f6bf7
+      run: wget -O mypredict.json https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fmypredict.json?alt=media&token=f742da75-627b-4c80-bd48-5668de4f6bf7
 #       run:  wget -O prediction.py ${{ github.event.client_payload.codeurl }}
     - name: Download weights
-       run   wget -O mypredict.weights.bin https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fmypredict.weights.bin?alt=media&token=15d35f77-7ec4-478b-817f-ad74ee0a7104
+      run:  wget -O mypredict.weights.bin https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/code%2Fmypredict.weights.bin?alt=media&token=15d35f77-7ec4-478b-817f-ad74ee0a7104
 
 #    - name: remove base linear_model 
 #      run: rm -rf linear_model
