@@ -1,0 +1,87 @@
+name: Predictjs
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  repository_dispatch:
+    types: [predictionjs]  
+
+jobs:
+
+  predictionjs:
+    runs-on: ubuntu-latest
+    container: adsoft/ai-ops:latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - run: 'echo "field: ${{github.event.client_payload.MODEL_NAME}}"'
+
+    - name: docker login
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
+        
+    - name: Download and run the Docker base image
+      run: docker run -d --name serving_base tensorflow/serving
+ 
+    - name: Download program
+      run:  wget -O prediction.py ${{ github.event.client_payload.codeurl }}
+#    - name: remove base linear_model 
+#      run: rm -rf linear_model
+
+    - name: pip install reqs
+      run: pip install pandas 
+      
+    - name: run python program 
+      run: python prediction.py
+
+    - name: update docker user in k8 
+      run: sed -i 's/{docker_user}/${{secrets.DOCKER_USER}}/g' manifests/linear_model_k8s.yaml
+
+    - name: update model name in k8 
+      run: sed -i 's/{model_name}/${{github.event.client_payload.MODEL_NAME}}/g' manifests/linear_model_k8s.yaml
+
+    - name: update _ by - 
+      run: sed -i 's/_/-/g' manifests/linear_model_k8s.yaml
+
+    - name: update sha in k8
+      run: sed -i 's/{github.sha}/${{ github.sha }}/g' manifests/linear_model_k8s.yaml
+
+    - name: ls -la 
+      run: ls -la  
+      #cat manifests/linear_model_k8s.yaml
+
+#    - name: Extract model
+#      run: unzip linear_model.zip
+      
+    - name: copy model to the Docker image
+      run: docker cp ${{github.event.client_payload.MODEL_NAME}} serving_base:/models/${{github.event.client_payload.MODEL_NAME}}
+      
+    - name: Build the custom Docker image
+      run: docker commit --change "ENV MODEL_NAME ${{github.event.client_payload.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow-${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
+  
+    - name: Docker Push
+      run: docker push ${{secrets.DOCKER_USER}}/tensorflow-${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
+      
+    - uses: okteto/context@2.7.0
+      with:
+        token: ${{secrets.OKTETO_TOKEN }}
+
+ #   - name: Deploy
+ #     uses: okteto/pipeline@2.7.0
+ #     with:
+ #        name: ${{github.event.client_payload.MODEL_NAME}}
+ #        timeout: 10m
+
+    - name: Deploy and Wait
+      uses: okteto/actions/deploy@v1
+      env:
+        KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}
+      with:
+        namespace: ${{secrets.OKTETO_NAMESPACE }}
+        manifest: manifests/linear_model_k8s.yaml
+        tag: ${{ secrets.DOCKER_USERNAME }}/tensorflow_${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
