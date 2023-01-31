@@ -56,7 +56,7 @@ jobs:
       run: sed -i 's/_/-/g' manifests/linear_model_k8s.yaml
 
     - name: update sha in k8
-      run: sed -i 's/{github.sha}/${{ github.sha }}/g' manifests/linear_model_k8s.yaml
+      run: sed -i 's/{github.sha}/${{github.event.client_payload.sha}}/g' manifests/linear_model_k8s.yaml
 
     - name: ls -la 
       run: ls -la  
@@ -69,10 +69,10 @@ jobs:
       run: docker cp ${{github.event.client_payload.MODEL_NAME}} serving_base:/models/${{github.event.client_payload.MODEL_NAME}}
       
     - name: Build the custom Docker image
-      run: docker commit --change "ENV MODEL_NAME ${{github.event.client_payload.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow-${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
+      run: docker commit --change "ENV MODEL_NAME ${{github.event.client_payload.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow-${{github.event.client_payload.MODEL_NAME}}:${{github.event.client_payload.sha}}
   
     - name: Docker Push
-      run: docker push ${{secrets.DOCKER_USER}}/tensorflow-${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
+      run: docker push ${{secrets.DOCKER_USER}}/tensorflow-${{github.event.client_payload.MODEL_NAME}}:${{github.event.client_payload.sha}}
       
     - uses: okteto/context@2.7.0
       with:
@@ -91,4 +91,4 @@ jobs:
       with:
         namespace: ${{secrets.OKTETO_NAMESPACE }}
         manifest: manifests/linear_model_k8s.yaml
-        tag: ${{ secrets.DOCKER_USERNAME }}/tensorflow_${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
+        tag: ${{ secrets.DOCKER_USERNAME }}/tensorflow_${{github.event.client_payload.MODEL_NAME}}:${{github.event.client_payload.sha}}
