@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     #- run: 'echo "field: ${{github.event.client_payload.MODEL_NAME}} json: ${{github.event.client_payload.codeurl}} bin: ${{github.event.client_payload.codebin}}"'
-    - run: 'echo SHA ${{github.workflow_sha}}'
+    - run: 'echo SHA ${{github.event.client_payload.sha}}'
     - name: docker login
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
