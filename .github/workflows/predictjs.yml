@@ -29,10 +29,12 @@ jobs:
       run: docker run -d --name serving_base tensorflow/serving
  
     - name: Download model
-      run: wget -O ${{github.event.client_payload.MODEL_NAME}}.json ${{github.event.client_payload.codeurl}}
+      run: wget -O ${{github.event.client_payload.MODEL_NAME}}.json https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/adsoft-prediction-wines-oneHidden.json?alt=media&token=a3422087-3b0f-48f6-83c2-eca6691bab7e
+        #${{github.event.client_payload.codeurl}}
 #       run:  wget -O prediction.py ${{ github.event.client_payload.codeurl }}
     - name: Download weights
-      run:  wget -O ${{github.event.client_payload.MODEL_NAME}}.bin ${{github.event.client_payload.codebin}}
+      run:  wget -O ${{github.event.client_payload.MODEL_NAME}}.bin https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/adsoft-prediction-wines-oneHidden.weights.bin?alt=media&token=0d8f624c-6216-456d-a6b8-1ff9303f9b38
+        # ${{github.event.client_payload.codebin}}
 
     - name: show dir 
       run: ls -la
