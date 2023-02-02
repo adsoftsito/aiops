@@ -29,13 +29,14 @@ jobs:
       run: docker run -d --name serving_base tensorflow/serving
  
     - name: Download model
-      run: wget -O ${{github.event.client_payload.MODEL_NAME}}.json https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/prediction-wines.json?alt=media&token=d107fb9e-55cd-46b8-a493-766acfecff21
-        #${{github.event.client_payload.codeurl}}
+      run: wget -O ${{github.event.client_payload.MODEL_NAME}}.json ${{github.event.client_payload.codeurl}}
+      #https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/prediction-wines.json?alt=media&token=d107fb9e-55cd-46b8-a493-766acfecff21
+       
 #       run:  wget -O prediction.py ${{ github.event.client_payload.codeurl }}
     - name: Download weights
-      run:  wget -O ${{github.event.client_payload.MODEL_NAME}}.bin https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/prediction-wines.bin?alt=media&token=2db61deb-2494-4e7f-a0aa-611f63a10e89
-        # ${{github.event.client_payload.codebin}}
-
+      run:  wget -O ${{github.event.client_payload.MODEL_NAME}}.bin ${{github.event.client_payload.codebin}}
+      # https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/prediction-wines.bin?alt=media&token=2db61deb-2494-4e7f-a0aa-611f63a10e89
+        
     - name: show dir 
       run: ls -la
 
