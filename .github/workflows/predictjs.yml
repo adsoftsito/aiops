@@ -33,7 +33,7 @@ jobs:
         #${{github.event.client_payload.codeurl}}
 #       run:  wget -O prediction.py ${{ github.event.client_payload.codeurl }}
     - name: Download weights
-      run:  wget -O ${{github.event.client_payload.MODEL_NAME}}.bin https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/adsoft-prediction-wines-oneHidden.weights.bin?alt=media&token=0d8f624c-6216-456d-a6b8-1ff9303f9b38
+      run:  wget -O ${{github.event.client_payload.MODEL_NAME}}.bin https://firebasestorage.googleapis.com/v0/b/nocode-app-ai.appspot.com/o/adsoft-prediction-wines-oneHidden.json?alt=media&token=49f55f2b-1ee2-40b2-b61d-970a34d77a3d
         # ${{github.event.client_payload.codebin}}
 
     - name: show dir 
