@@ -2,9 +2,9 @@ name: Predictjs
 
 on:
   push:
-    branches: [ main ]
+    branches: [ test ]
   pull_request:
-    branches: [ main ]
+    branches: [ test ]
   repository_dispatch:
     types: [predictionjs]  
 
